@@ -1,0 +1,34 @@
+.videoContainer{
+    height:100%;
+    width:100%;
+    border-radius:5px;
+}
+
+
+.video{
+    height:100% !important;
+    width:100% !important;
+    object-fit:fill;
+    display: block;
+  
+}
+
+.videoWrapper{
+    width:100%;
+    height:100%;
+}
+
+
+.videoMainContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height:100%;
+    width:100%;
+}
+
+@media screen and (min-width:426px){
+    .videoWrapper{ 
+        max-width:370px;        
+    }
+}

@@ -1,0 +1,49 @@
+
+
+.reelsContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position:relative;
+    top:0;
+    left:0;
+    height:100%;
+    width:100%;
+    max-width: 600px;
+}
+
+.iconContainer{
+    display: flex;
+    position: absolute;
+    z-index: 1;
+    flex-direction: column;
+    bottom: 15%;
+    right: 0;
+    justify-content: space-evenly;
+}
+
+
+
+.videoContainer{
+    position: relative;
+    top:0;
+    left:0;
+    height:100%
+}
+
+
+.icons{
+    font-size:3rem;
+    cursor: pointer;
+}
+
+.active{
+    color:blueviolet
+}
+
+@media screen and (min-width:426px){
+    .iconContainer{
+        right: 5%;
+    }
+    
+}

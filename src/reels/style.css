@@ -1,0 +1,47 @@
+
+.allReels{
+    height: 100vh;
+    width:100%;
+    margin:0 auto;
+    overflow:auto;
+    scroll-snap-type: y mandatory;
+    box-sizing: border-box;
+}
+
+.allReels::-webkit-scrollbar{
+    display: none;
+}
+
+.reelsWidthContainer{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.reelsContainer{
+    height: 100vh;
+    width:100%;
+    display: flex;
+    max-width: 600px;
+    scroll-snap-stop: always;
+    scroll-snap-align: start;
+    margin:1rem 0
+}
+
+@media screen and (min-width:426px){
+    
+    .allReels{
+        width:90%;
+        scroll-padding-top: 3.2rem;
+        padding-top: 3.2rem;
+    }
+
+    .reelsContainer{ 
+        height:90vh; 
+        align-items: stretch; 
+        margin:1.3rem 0;
+    }
+}
