@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState,memo, useCallback } from 'react'
 import style from './style.css'
 import { AiOutlineSend } from 'react-icons/ai';
+import { useGetReelsQuery } from '../../queries/reels';
 
 function Comment(props){
     const {user,comment} = props;
@@ -16,8 +17,16 @@ function Comment(props){
 
 
 function CommentSection(props){
-    const {onSend,comments} = props;
+    const {onSend,id} = props;
     const [newComment,setComment]= useState("");
+
+    const {data:comments=[]} = useGetReelsQuery({
+        select:useCallback((data)=>{
+            const reel = data.reels.filter(({id:reelId})=>reelId === id);
+            return reel.comments;
+        },[id]),
+        enabled:false
+    })
 
     const onCommentChange=(e)=>{
         setComment(e.target.value)
@@ -39,6 +48,6 @@ function CommentSection(props){
     </div>
 }
 
-export default CommentSection;
+export default memo(CommentSection);
 
 

@@ -1,4 +1,4 @@
-import React,{useRef} from "react";
+import React,{useRef,memo} from "react";
 import Video from "../../components/video/Video";
 import style from './style.css'
 import { useReelsFromTagQuery } from "../../queries/reels";
@@ -12,7 +12,15 @@ function RelatedVideo(props){
 }
 
 function RelatedVideos(props){
-    const {tags}= props;
+    const {id} = props;
+    
+    const {data:tags=[]} = useGetReelsQuery({
+        select:useCallback((data)=>{
+            const reel = data.reels.filter(({id:reelId})=>reelId === id);
+            return reel.tags;
+        },[id]),
+        enabled:false
+    })
 
     const {data=[]} = useReelsFromTagQuery(tags,{
         enabled:tags.length>0,
@@ -24,4 +32,4 @@ function RelatedVideos(props){
     </div>
 }
 
-export default RelatedVideos
+export default memo(RelatedVideos);

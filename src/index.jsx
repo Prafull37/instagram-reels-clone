@@ -11,9 +11,10 @@ import App from './App';
 
 function runApplication(){
     const app = document.getElementById("app")
-    ReactDOM.render(<QueryClientProvider client={queryClient}>
+    ReactDOM.render(
+    <QueryClientProvider client={queryClient}>
         <App/>
-    </QueryClientProvider> ,app)
+    </QueryClientProvider>,app)
 
 }
 

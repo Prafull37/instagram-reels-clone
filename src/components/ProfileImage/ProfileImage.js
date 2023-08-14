@@ -9,14 +9,14 @@ const imageStyle={
 }
 
 function ProfileImage(props){
-    const {profileImage,size="sm"}= props;
-    
+    const {profileImage,username,size="sm",imageProps}= props;
+
     return (<div className={style.profileContainer}>
         <div className={style.profileImage} style={imageStyle[size]}>
-            <img src={profileImage} alt={"s"}/>
+            <img src={profileImage} alt={username} {...imageProps}/>
         </div>
-        <div className={style.userName}>John Doe</div>
+        <div className={style.userName}>{username}</div>
     </div>)
 }
 
-export default ProfileImage;
+export default memo(ProfileImage);

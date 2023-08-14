@@ -5,10 +5,21 @@ import style from './style.css'
 
 
 function Icons(props){
-    const {onClick,isActive,activeIcon,normalIcon,iconText} = props;
+    const [isActive,setIsActive] = useState(false);
+    const {onClick,activeIcon,normalIcon,iconText} = props;
+
+    const doesHaveActiveIcon = !!activeIcon
+
+    const onIconClick =()=>{
+        if(doesHaveActiveIcon){
+            setIsActive(isActive)
+        }
+        onClick();
+    }
+
     return (
-        <div className={style.iconContainer} onClick={onClick}>
-            {isActive ? normalIcon:activeIcon}
+        <div className={style.iconContainer} onClick={onIconClick}>
+            {isActive ? activeIcon:(normalIcon||activeIcon)}
             {iconText && <div>{iconText}</div>}
         </div>
     )

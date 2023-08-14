@@ -2,7 +2,7 @@ import React, { useCallback, useRef,useState,forwardRef ,useImperativeHandle} fr
 import style from './style.css'
 
 function Video(props,ref){
-    const {src} = props;
+    const {src,...restProps} = props;
     const [isPlaying,setIsPlaying] = useState(false);
 
     const videoRef = useRef();
@@ -45,7 +45,7 @@ function Video(props,ref){
     return <div className={style.videoMainContainer} onClick={onPlayAndPause} data-test="vm">
         <div className={style.videoWrapper} data-test="vw">
             <div className={style.videoContainer} data-test="vc">
-                <video ref={videoRef} className={style.video} loop>
+                <video ref={videoRef} className={style.video} {...restProps}>
                     <source src={src} type="video/mp4" />
                 </video>
             </div>

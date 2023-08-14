@@ -1,4 +1,4 @@
-import delay from "./delay";
+import delay from "../utils/delay";
 import generateProduct from "../../fakers/generateProdcts";
 
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React ,{memo} from 'react';
 import { BiLinkExternal} from 'react-icons/bi'
 
 import style from './style.css'
@@ -24,7 +24,16 @@ function Product(props){
 }
 
 function ProductList(props){
-    const {tags=[]} = props;
+    const {id} = props;
+
+    const {data:tags=[]} = useGetReelsQuery({
+        select:useCallback((data)=>{
+            const reel = data.reels.filter(({id:reelId})=>reelId === id);
+            return reel.tags;
+        },[id]),
+        enabled:false
+    })
+
 
     const {data=[]} = useProductsFromTagQuery(tags,{enabled:tags.length>0,select:(data)=>data.products});
 
@@ -36,4 +45,4 @@ function ProductList(props){
 
 
 
-export default ProductList;
+export default memo(ProductList);

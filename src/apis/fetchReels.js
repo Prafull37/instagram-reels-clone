@@ -1,7 +1,7 @@
 import generateReels from "../../fakers/generateReels";
 import { faker } from '@faker-js/faker';
 
-import delay from "./delay";
+import delay from "../utils/delay";
 
 let totalGeneratedCount = 0;
 

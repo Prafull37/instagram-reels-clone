@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { memo } from 'react';
 import style from './style.css'
 
 import {RxCross1} from 'react-icons/rx'
@@ -23,4 +23,4 @@ const Modal = (props)=>{
     </div>
 }
 
-export default Modal;
+export default memo(Modal);

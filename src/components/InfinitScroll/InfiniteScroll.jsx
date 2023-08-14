@@ -1,4 +1,4 @@
-import React,{useCallback, useEffect, useRef, useState} from 'react';
+import React,{useCallback, useEffect, useRef, memo} from 'react';
 import useIntersectionObeserver from '../../hooks/useIntersectionObserver';
 
 
@@ -32,4 +32,4 @@ function InfiniteScroll(props){
     return (<div ref={childRef} {...restProps}>{children}</div>)
 }
 
-export default InfiniteScroll
+export default memo(InfiniteScroll);

@@ -1,27 +1,25 @@
 import React,{useRef} from 'react'
 
-import Reel from "../molecules/reel/Reel";
+import Reel from "./reel/Reel";
 import style from './style.css';
 import { useGetReelsQuery } from '../queries/reels';
 import InfiniteScroll from '../components/InfinitScroll/InfiniteScroll';
 
 function ReelContainer(){
-   const {data={},fetchNextPage}= useGetReelsQuery();
+    const {data:reels=[],fetchNextPage}= useGetReelsQuery({select:(data)=>data.reels});
 
-   const parentRef =  useRef();
-
-   const {reels = [],} = data;
+    const parentRef =  useRef();
 
     return <div className={style.allReels} data-test="rc" ref={parentRef}>
         <div className={style.reelsWidthContainer}  >
-           {reels.map((reel,index)=>{ 
-               return <InfiniteScroll key={reel.id} className={style.reelsContainer} parentRef={parentRef} doesObserve={index === reels.length-2} fetchNextPage={fetchNextPage}>
-                  <Reel {...reel}/>
-                </InfiniteScroll>
-            })}
+        {reels.map((reel,index)=>{ 
+            return (
+            <InfiniteScroll key={reel.id} className={style.reelsContainer} parentRef={parentRef} doesObserve={index === reels.length-2} fetchNextPage={fetchNextPage}>
+                <Reel {...reel}/>
+            </InfiniteScroll>
+            )})}
         </div>
     </div>
-    
 }
 
 export default ReelContainer
