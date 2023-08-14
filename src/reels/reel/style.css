@@ -44,7 +44,9 @@
 .videoDescription{
     position:absolute;
     bottom:5%;
-    width: 50%;
+    left:0;
+    margin:0.8rem;
+    text-align: left;
 }
 
 .description{

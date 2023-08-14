@@ -43,11 +43,11 @@ function Reel(props){
     return( <div className={style.reelsContainer} data-test="r">   
             <div className={style.videoContainer} data-test="s">
                 <Video src={video_src} ref={videoRef} />
-            </div>
-            <div className={style.videoDescription}>
-                <ProfileImage profileImage={profile_picture} username={username}/>
-                <div className={style.description}>
-                    {description}
+                <div className={style.videoDescription}>
+                    <ProfileImage profileImage={profile_picture} username={username}/>
+                    <div className={style.description}>
+                        {description}
+                    </div>
                 </div>
             </div>
             <div className={style.iconContainer} data-test='ic'>
