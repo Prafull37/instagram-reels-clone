@@ -1,4 +1,4 @@
-import React,{useCallback, useEffect, useRef, useState} from 'react';
+import React,{useCallback, lazy, useRef, useState, Suspense} from 'react';
 
 import classNames from 'classnames';
 import Video from "../../components/video/Video";
@@ -10,10 +10,11 @@ import Modal from '../../components/Modal/Modal';
 
 import style from './style.css'
 import Icons from '../../components/Icons/Icons';
-import CommentSection from '../../contents/Comments/CommentSection';
-import Shopping from '../../contents/Shopping/Shopping';
-import RelatedVideos from '../../contents/RelatedVideos/RelatedVideos';
 import ProfileImage from '../../components/ProfileImage/ProfileImage';
+
+const CommentSection = lazy(()=>import( '../../contents/Comments'));
+const Shopping = lazy(()=>import( '../../contents/Shopping'));
+const RelatedVideos = lazy(()=>import( '../../contents/RelatedVideos'));
 
 const ModalEnums={
     COMMENT:"comment",
@@ -85,9 +86,9 @@ function Reel(props){
                 onModalClose={onModalClose}
                 open={!!modal}
             >
-                {modal === ModalEnums.COMMENT && <CommentSection id={id} />}
-                {modal === ModalEnums.RELATED_VIDEOS && <RelatedVideos id={id}/>}
-                {modal === ModalEnums.PRODUCTS && <Shopping id={id}/>}
+                {modal === ModalEnums.COMMENT && <Suspense fallback={"Loading..."}><CommentSection id={id} /></Suspense>}
+                {modal === ModalEnums.RELATED_VIDEOS && <Suspense fallback={"Loading..."}><RelatedVideos id={id}/></Suspense>}
+                {modal === ModalEnums.PRODUCTS && <Suspense fallback={"Loading..."}><Shopping id={id}/></Suspense>}
             </Modal>
         </div>
     );

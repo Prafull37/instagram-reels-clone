@@ -1,18 +1,23 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
+const webpack = require("webpack");
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 module.exports=(mode)=>{
+    const isProduction = mode==="production";
+
     return {
         mode,
         entry:"./src/index.jsx",
         output:{
             path:path.resolve(__dirname,'dist'),
-            filename:'bundle.[hash].js',
+            ...( isProduction? {filename:'[name].[contenthash].js'}:{filename:"[name].[fullhash].js"}),
+            clean:true
         },
-        devServer:{
+       ...(!isProduction ? {devServer:{
             port:3001,
             open:true,
-        },
+        }}:{}),
         devtool: 'source-map',
         resolve:{
             fullySpecified:false,
@@ -36,7 +41,13 @@ module.exports=(mode)=>{
         plugins:[
             new HtmlWebpackPlugin({
                 template: "public/index.html",
-            })
-        ]
+                inject:true,
+            }),
+        ],
+        optimization:{
+            splitChunks:{
+                chunks:"all"
+            }
+        }
     }
 }

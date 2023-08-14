@@ -1,4 +1,4 @@
-import { faker } from '@faker-js/faker';
+import { faker } from '@faker-js/faker/locale/en';
 import getVideoUrl from './randomVideos';
 
 function generateReels() {
