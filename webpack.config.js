@@ -1,7 +1,8 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const path = require("path");
-const webpack = require("webpack");
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+// const webpack = require("webpack");
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 module.exports=(mode)=>{
     const isProduction = mode==="production";
@@ -34,7 +35,7 @@ module.exports=(mode)=>{
               },
               {
                 test: /\.css$/, // styles files
-                use: ["style-loader", {loader:"css-loader",options:{url:true,modules:true}}, ],
+                use: [MiniCssExtractPlugin.loader, {loader:"css-loader",options:{url:true,modules:true}}, ],
               }
             ]
         },
@@ -43,6 +44,7 @@ module.exports=(mode)=>{
                 template: "public/index.html",
                 inject:true,
             }),
+            new MiniCssExtractPlugin()
         ],
         optimization:{
             splitChunks:{
