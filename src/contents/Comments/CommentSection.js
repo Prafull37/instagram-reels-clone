@@ -2,46 +2,38 @@ import React, { useState } from 'react'
 import style from './style.css'
 import { AiOutlineSend } from 'react-icons/ai';
 
-function Comments(){
+function Comment(props){
+    const {user,comment} = props;
     return <div className={style.comment}>
         <div className={style.commentHeader}>
-            <div className={style.commentUserName}>John Doe</div>
+            <div className={style.commentUserName}>{user}</div>
         </div>
         <div className={style.commentValue}>
-            This is the commentss...
+          {comment}
         </div>
     </div>
 }
 
 
 function CommentSection(props){
-    const {onSend} = props;
-    const [comment,setComment]= useState("");
+    const {onSend,comments} = props;
+    const [newComment,setComment]= useState("");
 
     const onCommentChange=(e)=>{
         setComment(e.target.value)
     }
 
     const onSendComment=()=>{
-        onSend(comment);
+        onSend(newComment);
         setComment("")
     }
 
     return <div className={style.comentSection}>
         <div className={style.allCommentSection}>
-             <Comments/>
-             <Comments/>
-             <Comments/>
-             <Comments/>
-             <Comments/>
-             <Comments/>
-             <Comments/>
-             <Comments/>
-             <Comments/>
-             <Comments/>
+            {comments.map((comment)=>(<Comment {...comment}/>))}
         </div>
         <div className={style.commentAddSection}>
-            <input type="text" value={comment} onChange={onCommentChange}/>
+            <input type="text" value={newComment} onChange={onCommentChange}/>
             <div className={style.commentSend} onClick={onSendComment}><AiOutlineSend/></div>
         </div>
     </div>

@@ -41,6 +41,18 @@
     color:blueviolet
 }
 
+.videoDescription{
+    position:absolute;
+    bottom:5%;
+    width: 50%;
+}
+
+.description{
+    color:white;
+    font-size: 1.5rem;
+    margin-top:1rem;
+}
+
 @media screen and (min-width:426px){
     .iconContainer{
         right: 5%;

@@ -16,7 +16,7 @@ function ReelContainer(){
         <div className={style.reelsWidthContainer}  >
            {reels.map((reel,index)=>{ 
                return <InfiniteScroll key={reel.id} className={style.reelsContainer} parentRef={parentRef} doesObserve={index === reels.length-2} fetchNextPage={fetchNextPage}>
-                  <Reel/>
+                  <Reel {...reel}/>
                 </InfiniteScroll>
             })}
         </div>
