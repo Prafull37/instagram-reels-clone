@@ -9,14 +9,15 @@
     "build": "webpack --config webpack.config.js --mode production"
   },
   "dependencies": {
+    "@coreui/coreui": "^5.0.0-alpha.1",
+    "@coreui/react": "^5.0.0-alpha.0",
     "@faker-js/faker": "^8.0.2",
     "classnames": "^2.3.2",
     "react": "17",
     "react-device-detect": "^2.2.3",
     "react-dom": "17",
     "react-icons": "^4.10.1",
-    "react-query": "3",
-    "rsuite": "^5.37.4"
+    "react-query": "3"
   },
   "devDependencies": {
     "@babel/core": "^7.22.10",

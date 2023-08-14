@@ -1,3 +1,90 @@
+.modalContainer{
+    position: absolute;
+    top:0;
+    right:0;
+    height: 100vh;
+    width:100%;
+}
+
+.modalBackdrop{
+    position: absolute;
+    top:0;
+    right:0;
+    z-index:2;
+    height: 100vh;
+    width:100%;
+    background-color: rgba(0, 0, 0, 0.189);
+}
+
+
+.modalWrapper{
+    width:70%;
+    max-width: 300px;
+    height:30%;
+    min-height: 20rem;
+    position: absolute;
+    top: 20%;
+    left:10%;
+    background-color: rgb(52, 51, 51);
+    display: flex;
+    flex-direction: column;
+    border-radius: 4px;
+    color:white;
+    z-index: 3;
+}
+
 .modalHeader{
-    text-align:center
+    border-bottom:1px solid rgba(255, 255, 255, 0.875);
+    position: relative;
+    top:0;
+    text-align: center;
+    padding:6px;
+    margin-bottom: 1rem;
+    min-height: 1rem;
+}
+
+.modalTitle{
+
+}
+
+.modalCloseButton{
+    position:absolute;
+    right:5px;
+    top:5px
+}
+
+.modalCloseButton:hover{
+    color:rgb(223, 223, 223);
+}
+
+.modalBody{
+    overflow: auto;
+}
+
+@media screen and (min-width:426px) {
+    .modalWrapper{
+       left:12%;
+    }
+    
+}
+
+@media screen and (min-width:500px) {
+    .modalWrapper{
+       left:15%;
+    }
+    
+}
+
+@media screen and (min-width:550px) {
+    .modalWrapper{
+       left:20%;
+    }
+    
+}
+
+@media screen and (min-width:600px) {
+    .modalWrapper{
+       left:25%;
+    }
+    
 }

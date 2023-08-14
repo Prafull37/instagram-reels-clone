@@ -1,0 +1,40 @@
+.comment{
+    padding: 0.5rem;
+    border-bottom:1px solid rgba(255, 255, 255, 0.519);
+}
+
+.commentSection{
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    justify-content: space-between;
+    align-items: center;
+    height:100%;
+}
+
+.allCommentSection{
+   height:15rem;
+}
+
+.commentAddSection{
+    display: flex;
+    padding:0 4px;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.commentAddSection input{
+    width:90%;
+    background-color: rgb(84, 80, 80);
+    border:none;
+    margin-right:0.5rem;
+}
+
+.commentSend{
+    font-size:1.9rem;
+    vertical-align: middle;
+}
+
+/* .commentAddSection */

@@ -1,18 +1,26 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import style from './style.css'
 
-import RsuiteModal from 'rsuite/Modal'
+import {RxCross1} from 'react-icons/rx'
+
 
 const Modal = (props)=>{
     const {title,children,open,onModalClose} = props;
-    return <RsuiteModal open={open} onClose={onModalClose}>
-            <RsuiteModal.Header className={style.modalHeader}>
-                <RsuiteModal.Title >{title}</RsuiteModal.Title>
-            </RsuiteModal.Header>
-            <RsuiteModal.Body>
-                {children}
-            </RsuiteModal.Body>
-    </RsuiteModal>
+
+    if(!open) return null;
+
+    return <div className={style.modalContainer} data-test="modalc" >
+        <div className={style.modalBackdrop} onClick={onModalClose}/>
+        <div className={style.modalWrapper} data-test="modalw">
+            <div className={style.modalHeader} data-test="modalH">
+                <div className={style.modalTitle} data-test="modalT">{title}</div>
+                <div className={style.modalCloseButton} data-test="modalCb" onClick={onModalClose}><RxCross1/></div>
+            </div>
+            <div className={style.modalBody} data-test="modalb">
+              {children}
+            </div>
+        </div>
+    </div>
 }
 
 export default Modal;

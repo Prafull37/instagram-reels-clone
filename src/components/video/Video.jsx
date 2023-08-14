@@ -45,7 +45,7 @@ function Video(props,ref){
     return <div className={style.videoMainContainer} onClick={onPlayAndPause} data-test="vm">
         <div className={style.videoWrapper} data-test="vw">
             <div className={style.videoContainer} data-test="vc">
-                <video ref={videoRef} className={style.video} autoPlay loop>
+                <video ref={videoRef} className={style.video} loop>
                     <source src={src} type="video/mp4" />
                 </video>
             </div>
