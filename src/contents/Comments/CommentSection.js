@@ -22,7 +22,7 @@ function CommentSection(props){
 
     const {data:comments=[]} = useGetReelsQuery({
         select:useCallback((data)=>{
-            const reel = data.reels.filter(({id:reelId})=>reelId === id);
+            const reel = data.reels.find(({id:reelId})=>reelId === id);
             return reel.comments;
         },[id]),
         enabled:false
@@ -39,7 +39,7 @@ function CommentSection(props){
 
     return <div className={style.comentSection}>
         <div className={style.allCommentSection}>
-            {comments.map((comment)=>(<Comment {...comment}/>))}
+            {comments.map((comment)=>(<Comment key={comment.id} {...comment}/>))}
         </div>
         <div className={style.commentAddSection}>
             <input type="text" value={newComment} onChange={onCommentChange}/>

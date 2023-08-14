@@ -2,11 +2,12 @@ import React, { useCallback,useState } from 'react';
 import Modal from '../Modal/Modal';
 
 import style from './style.css'
+import { noop } from '../../utils/utils';
 
 
 function Icons(props){
     const [isActive,setIsActive] = useState(false);
-    const {onClick,activeIcon,normalIcon,iconText} = props;
+    const {onClick=noop,activeIcon,normalIcon,iconText} = props;
 
     const doesHaveActiveIcon = !!activeIcon
 
@@ -19,7 +20,7 @@ function Icons(props){
 
     return (
         <div className={style.iconContainer} onClick={onIconClick}>
-            {isActive ? activeIcon:(normalIcon||activeIcon)}
+            {isActive ? activeIcon:normalIcon}
             {iconText && <div>{iconText}</div>}
         </div>
     )

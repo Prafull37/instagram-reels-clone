@@ -1,4 +1,5 @@
 import React, { memo } from 'react';
+import cx from 'classnames'
 import style from './style.css'
 
 import {RxCross1} from 'react-icons/rx'
@@ -7,9 +8,7 @@ import {RxCross1} from 'react-icons/rx'
 const Modal = (props)=>{
     const {title,children,open,onModalClose} = props;
 
-    if(!open) return null;
-
-    return <div className={style.modalContainer} data-test="modalc" >
+    return <div className={cx(style.modalContainer,{[style.hidden]:!open})} data-test="modalc" >
         <div className={style.modalBackdrop} onClick={onModalClose}/>
         <div className={style.modalWrapper} data-test="modalw">
             <div className={style.modalHeader} data-test="modalH">

@@ -1,4 +1,4 @@
-import React,{useCallback, useRef, useState} from 'react';
+import React,{useCallback, useEffect, useRef, useState} from 'react';
 
 import classNames from 'classnames';
 import Video from "../../components/video/Video";
@@ -36,8 +36,9 @@ function Reel(props){
     const onModalOpen = useCallback((modalName)=>{setModal(modalName)},[setModal])
 
 
-    const {id,video_src,likes,tags,description,comments,user} = props;
+    const {id,video_src,likes,description,comments,user} = props;
     const {profile_picture,username} = user
+
 
     return( <div className={style.reelsContainer} data-test="r">   
             <div className={style.videoContainer} data-test="s">
@@ -56,8 +57,8 @@ function Reel(props){
                     iconText={likes}
                 />
                 <Icons
-                    activeIcon={<FaRegCommentDots className={classNames(style.icons,style.active)}/>}
-                    normalIcon={ <FaCommentDots className={style.icons}/>}
+                    activeIcon={ <FaCommentDots className={classNames(style.icons,style.active)}/>}
+                    normalIcon={ <FaRegCommentDots className={style.icons}/>}
                     iconText={comments.length}
                     onClick={()=>onModalOpen(ModalEnums.COMMENT)}
                 />
@@ -67,13 +68,13 @@ function Reel(props){
                     iconText={"Share"}
                 />
                 <Icons
-                    icon={  <AiOutlineShopping className={style.icons}/>}
+                    normalIcon={  <AiOutlineShopping className={style.icons}/>}
                     iconText={"Shopping"}
                     onClick={()=>onModalOpen(ModalEnums.PRODUCTS)}
 
                 />
                 <Icons
-                    icon={ <BiSolidVideos className={style.icons}/>}
+                    normalIcon={ <BiSolidVideos className={style.icons}/>}
                     iconText={"Related videos"}
                     onClick={()=>onModalOpen(ModalEnums.RELATED_VIDEOS)}
                 />
