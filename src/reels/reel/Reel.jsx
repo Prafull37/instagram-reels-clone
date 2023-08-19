@@ -48,7 +48,6 @@ function Reel(props,ref){
     const {id,video_src,likes,description,comments,user,isVideoMuted,onVideoMute,isActiveVideo} = props;
     const {profile_picture,username} = user||{}
     //state
-    const [doesShowPlayAndPause,setShowPlayAndPause] = useState(false);
     const [videoState,setVideoState] = useState({isVideoPlaying:isActiveVideo,doesShowPlayAndPause:false,});
     const [action,setAction] = useState("");
     //ref
@@ -127,11 +126,16 @@ function Reel(props,ref){
                 videoRef.current.onPlay();
                 isVideoPlaying=true;
             }
+
+           
+
             return {isVideoPlaying,doesShowPlayAndPause:true}
         })
+
         timerRef.current=setTimeout(()=>{
-            setShowPlayAndPause((prevState)=>({...prevState,doesShowPlayAndPause:false}))
+            setVideoState((prevState)=>({...prevState,doesShowPlayAndPause:false}))
         },1000)
+     
     }
 
     const handlerForPrevVideo=()=>{
@@ -153,7 +157,7 @@ function Reel(props,ref){
 
     useEffect(()=>{
         return ()=>clearTimeout(timerRef.current)
-    },[doesShowPlayAndPause])
+    },[videoState.doesShowPlayAndPause])
 
 
     return( <div className={style.reelsContainer} data-test="r">   
