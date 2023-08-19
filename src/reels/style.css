@@ -24,7 +24,6 @@
 
 
 .reelsContainer{
-    height: 100vh;
     width:100%;
     display: flex;
     max-width: 600px;
@@ -42,7 +41,6 @@
     }
 
     .reelsContainer{ 
-        height:90vh; 
         align-items: stretch; 
         margin:1.3rem 0;
     }

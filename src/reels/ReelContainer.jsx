@@ -8,6 +8,7 @@ import { initializeReels } from '../store/reducer';
 import { useDispatch,useSelector } from '../store/storeContext';
 import { debounce } from '../utils/utils';
 
+const height= screen.width > 425 ? screen.availHeight *0.8 :screen.availHeight;
 
 function ReelContainer(){
     const [isVideoMuted,setIsVideoMuted] = useState(true)
@@ -78,7 +79,7 @@ function ReelContainer(){
         <div className={style.reelsWidthContainer}  >
         {reels.map((reel,index)=>{ 
             return (
-            <InfiniteScroll key={reel.id}  className={style.reelsContainer} parentRef={parentRef} doesObserve={index === reels.length-2} fetchNextPage={fetchNextPage}>
+            <InfiniteScroll key={reel.id}  className={style.reelsContainer} parentRef={parentRef} doesObserve={index === reels.length-2} fetchNextPage={fetchNextPage} style={{height}}>
                 <Reel {...reel} isVideoMuted={isVideoMuted} isActiveVideo={index===currentActiveReelRef.current} ref={(node)=>{reelRef.current[index]=node}} onVideoMute={onVideoMute} />
             </InfiniteScroll>
             )})}
