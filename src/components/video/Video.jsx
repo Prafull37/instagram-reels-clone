@@ -1,9 +1,9 @@
-import React, { useCallback, useRef,useState,forwardRef ,useImperativeHandle} from "react";
+import React, { useCallback, useRef,useState,forwardRef ,useImperativeHandle, useEffect} from "react";
 import style from './style.css'
 
 function Video(props,ref){
-    const {src,...restProps} = props;
-    const [isPlaying,setIsPlaying] = useState(false);
+    const {src,isVideoPlaying,isVideoMuted,...restProps} = props;
+    const [isPlaying,setIsPlaying] = useState(isVideoPlaying);
 
     const videoRef = useRef();
 
@@ -35,6 +35,7 @@ function Video(props,ref){
 
     useImperativeHandle(ref,()=>{
         return {
+            video:videoRef.current,
             onPause,
             onPlay,
             onSoundOn,
@@ -42,10 +43,11 @@ function Video(props,ref){
         }
     },[onPause,onPlay,onSoundOn,onSoundOff])
 
-    return <div className={style.videoMainContainer} onClick={onPlayAndPause} data-test="vm">
+
+    return <div className={style.videoMainContainer} onClick={onPlayAndPause}  data-test="vm">
         <div className={style.videoWrapper} data-test="vw">
             <div className={style.videoContainer} data-test="vc">
-                <video ref={videoRef} className={style.video} {...restProps}>
+                <video ref={videoRef} className={style.video} autoPlay={isVideoPlaying} muted loop {...restProps}>
                     <source src={src} type="video/mp4" />
                 </video>
             </div>

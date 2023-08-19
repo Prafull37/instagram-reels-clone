@@ -4,6 +4,7 @@
     width:100%;
     margin:0 auto;
     overflow:auto;
+    position: relative;
     scroll-snap-type: y mandatory;
     box-sizing: border-box;
     scrollbar-width: none;

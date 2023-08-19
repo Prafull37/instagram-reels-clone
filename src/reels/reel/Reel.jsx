@@ -1,10 +1,12 @@
-import React,{useCallback, lazy, useRef, useState, Suspense} from 'react';
+import React,{useCallback, lazy, useRef, useState,forwardRef, Suspense, useImperativeHandle, useEffect} from 'react';
 
 import classNames from 'classnames';
 import Video from "../../components/video/Video";
-import { AiOutlineLike,AiFillLike, AiOutlineShopping,AiFillShopping} from "react-icons/ai";
+import { AiOutlineLike,AiFillLike, AiOutlineShopping} from "react-icons/ai";
 import {FaRegCommentDots,FaCommentDots} from 'react-icons/fa'
-import {BiSolidShare,BiShare,BiSolidVideos} from 'react-icons/bi'
+import {BiSolidShare,BiShare,BiSolidVideos, BiPlay, BiPause} from 'react-icons/bi'
+import {GoMute,GoUnmute} from 'react-icons/go'
+
 
 import Modal from '../../components/Modal/Modal';
 
@@ -42,17 +44,28 @@ const MODAL_VS_TITLE={
 }
 
 
-function Reel(props){
+function Reel(props,ref){
+    const {id,video_src,likes,description,comments,user,isVideoMuted,onVideoMute,isActiveVideo} = props;
+    const {profile_picture,username} = user||{}
+    //state
+    const [doesShowPlayAndPause,setShowPlayAndPause] = useState(false);
+    const [videoState,setVideoState] = useState({isVideoPlaying:isActiveVideo,doesShowPlayAndPause:false,});
     const [action,setAction] = useState("");
+    //ref
     const videoRef = useRef()
+   
+    const timerRef= useRef();
+
+    //other variables
     const dispatch= useDispatch();
+   
 
     const onActionClose = useCallback(()=>{setAction("")},[setAction])
     const onAction = useCallback((actionName)=>{setAction(actionName)},[setAction])
 
+    
 
-    const {id,video_src,likes,description,comments,user} = props;
-    const {profile_picture,username} = user||{}
+   
 
     const isLikeIconActive = action === ACTION_ENUMS.LIKE;
     const isCommentIconActive = action === ACTION_ENUMS.COMMENT;
@@ -60,6 +73,7 @@ function Reel(props){
     const isProductIconActive = action === ACTION_ENUMS.PRODUCT;
     const isRelatedVideosIconActive = action === ACTION_ENUMS.RELATED_VIDEOS;
 
+    //functions
     const onPressLike=()=>{
         if(isLikeIconActive){
             onActionClose();
@@ -103,9 +117,53 @@ function Reel(props){
         }
     }
 
+    const onBackdropClick=()=>{
+        setVideoState((prevState)=>{
+            let isVideoPlaying = prevState.isVideoPlaying;
+            if(prevState.isVideoPlaying){
+                videoRef.current.onPause();
+                isVideoPlaying=false;
+            }else{
+                videoRef.current.onPlay();
+                isVideoPlaying=true;
+            }
+            return {isVideoPlaying,doesShowPlayAndPause:true}
+        })
+        timerRef.current=setTimeout(()=>{
+            setShowPlayAndPause((prevState)=>({...prevState,doesShowPlayAndPause:false}))
+        },1000)
+    }
+
+    const handlerForPrevVideo=()=>{
+        if(action){
+            onActionClose()
+        }
+    }
+
+    //effect and othres
+    useImperativeHandle(ref,()=>{
+        return {
+            handlerForPrevVideo,
+            onPlay:videoRef.current.onPlay,
+            onSoundOn:videoRef.current.onSoundOn,
+            onPause:videoRef.current.onPause,
+            onSoundOff:videoRef.current.onSoundOff,
+        }
+    },[action,handlerForPrevVideo]);
+
+    useEffect(()=>{
+        return ()=>clearTimeout(timerRef.current)
+    },[doesShowPlayAndPause])
+
+
     return( <div className={style.reelsContainer} data-test="r">   
             <div className={style.videoContainer} data-test="s">
-                <Video src={video_src} ref={videoRef} />
+                <Video src={video_src} ref={videoRef} isVideoPlaying={videoState.isVideoPlaying} isVideoMuted={isVideoMuted}/>
+                <div className={style.videoBackdrop} data-test="pnp" onClick={onBackdropClick}>
+                    <div className={classNames(style.icons,style.playAndPause,{[style.show]:videoState.doesShowPlayAndPause})}>
+                       {videoState.isVideoPlaying?<BiPause/>: < BiPlay />}
+                    </div>
+                </div>
                 <div className={style.videoDescription}>
                     <ProfileImage profileImage={profile_picture} username={username}/>
                     <div className={style.description}>
@@ -131,7 +189,10 @@ function Reel(props){
                 </div>
                 <div className={style.iconContainer} onClick={onPressRelatedVideos}>
                         <BiSolidVideos className={style.icons}/>
-                </div>       
+                </div>   
+                <div className={style.iconContainer} onClick={onVideoMute}>
+                    {isVideoMuted?<GoMute className={style.icons}/>:<GoUnmute className={style.icons}/>}
+                </div>      
             </div>
             <Modal
                 title={MODAL_VS_TITLE[action]}
@@ -146,4 +207,4 @@ function Reel(props){
     );
 }
 
-export default Reel;
+export default forwardRef(Reel);
