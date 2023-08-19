@@ -1,4 +1,4 @@
-*** For this application I have considered the device breakpoint of 425px for mobile breakpoint. After 425px all the reels width will be fixed to 370px ***
+* For this application I have considered the device breakpoint of 425px for mobile breakpoint. After 425px all the reels width will be fixed to 370px. 
 
 ### Library Used
 ```
@@ -46,3 +46,5 @@
 -> index.js
 
 ```
+### Things to fix.
+* Animated effect with modals
