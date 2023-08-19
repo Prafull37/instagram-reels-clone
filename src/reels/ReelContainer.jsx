@@ -8,7 +8,7 @@ import { initializeReels } from '../store/reducer';
 import { useDispatch,useSelector } from '../store/storeContext';
 import { debounce } from '../utils/utils';
 
-const height= screen.width > 425 ? screen.availHeight *0.8 :screen.availHeight;
+const height= screen.width > 425 ? window.innerHeight *0.8 :window.innerHeight;
 
 function ReelContainer(){
     const [isVideoMuted,setIsVideoMuted] = useState(true)
