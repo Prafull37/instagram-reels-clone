@@ -1,7 +1,8 @@
-import React, { useState,memo, useCallback } from 'react'
+import React, { useState,memo } from 'react'
 import style from './style.css'
 import { AiOutlineSend } from 'react-icons/ai';
-import { useGetReelsQuery } from '../../queries/reels';
+import { addComment } from '../../store/reducer';
+import { useDispatch,useSelector } from '../../store/storeContext';
 
 function Comment(props){
     const {user,comment} = props;
@@ -17,23 +18,22 @@ function Comment(props){
 
 
 function CommentSection(props){
-    const {onSend,id} = props;
+    const {id,username} = props;
     const [newComment,setComment]= useState("");
+    const dispatch = useDispatch();
 
-    const {data:comments=[]} = useGetReelsQuery({
-        select:useCallback((data)=>{
-            const reel = data.reels.find(({id:reelId})=>reelId === id);
+    const comments = useSelector((state)=>{
+            const reel = state.reels.find(({id:reelId})=>reelId === id);
             return reel.comments;
-        },[id]),
-        enabled:false
-    })
+        }
+    ) ||[];
 
     const onCommentChange=(e)=>{
         setComment(e.target.value)
     }
 
     const onSendComment=()=>{
-        onSend(newComment);
+        dispatch(addComment({id,comment:{id:Date.now().toString("16"),user:username,comment:newComment}}));
         setComment("")
     }
 

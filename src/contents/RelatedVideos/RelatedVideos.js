@@ -1,7 +1,8 @@
 import React,{useRef,memo,useCallback} from "react";
 import Video from "../../components/video/Video";
 import style from './style.css'
-import { useReelsFromTagQuery,useGetReelsQuery } from "../../queries/reels";
+import { useReelsFromTagQuery } from "../../queries/reels";
+import { useSelector } from "../../store/storeContext";
 
 function RelatedVideo(props){
     const {video_src} = props
@@ -14,13 +15,10 @@ function RelatedVideo(props){
 function RelatedVideos(props){
     const {id} = props;
     
-    const {data:tags=[]} = useGetReelsQuery({
-        select:useCallback((data)=>{
-            const reel = data.reels.find(({id:reelId})=>reelId === id);
+    const tags = useSelector((state)=>{
+            const reel = state.reels.find(({id:reelId})=>reelId === id);
             return reel.tags;
-        },[id]),
-        enabled:false
-    })
+        }) || [];
 
     const {data=[]} = useReelsFromTagQuery(tags,{
         enabled:tags.length>0,

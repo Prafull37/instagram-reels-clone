@@ -1,14 +1,27 @@
-import React,{useRef} from 'react'
+import React,{memo, useRef} from 'react'
 
 import Reel from "./reel/Reel";
 import style from './style.css';
 import { useGetReelsQuery } from '../queries/reels';
 import InfiniteScroll from '../components/InfinitScroll/InfiniteScroll';
+import { initializeReels } from '../store/reducer';
+import { useDispatch,useSelector } from '../store/storeContext';
 
 function ReelContainer(){
-    const {data:reels=[],fetchNextPage}= useGetReelsQuery({select:(data)=>data.reels});
+    const parentRef= useRef();
 
-    const parentRef =  useRef();
+    const reels = useSelector((state)=>{
+         return state.reels
+    }) ||[];
+
+    const dispatch = useDispatch();
+
+    const {fetchNextPage}= useGetReelsQuery({
+        onSuccess:(data)=>{
+            const {pages,pageCount} = data;
+            dispatch(initializeReels({reels:pages[pageCount-1].reels}))
+        },
+    });    
 
     return <div className={style.allReels} data-test="rc" ref={parentRef}>
         <div className={style.reelsWidthContainer}  >
@@ -22,4 +35,4 @@ function ReelContainer(){
     </div>
 }
 
-export default ReelContainer
+export default memo(ReelContainer);

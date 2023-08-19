@@ -13,7 +13,7 @@ const queryKeys={
 const MAX_COUNT = 5;
 const defaultPageParam ={count:MAX_COUNT}
 
-function useGetReelsQuery(options){
+function useGetReelsQuery(options={}){
     const {select=identity,...restOptions} = options
 
     const results= useInfiniteQuery({

@@ -1,8 +1,9 @@
-import React ,{memo,useCallback} from 'react';
+import React ,{memo} from 'react';
 import { BiLinkExternal} from 'react-icons/bi'
 
 import style from './style.css'
-import { useProductsFromTagQuery,useGetReelsQuery } from '../../queries/reels';
+import { useProductsFromTagQuery } from '../../queries/reels';
+import { useSelector } from '../../store/storeContext';
 
 
 function Product(props){
@@ -26,13 +27,10 @@ function Product(props){
 function ProductList(props){
     const {id} = props;
 
-    const {data:tags=[]} = useGetReelsQuery({
-        select:useCallback((data)=>{
-            const reel = data.reels.find(({id:reelId})=>reelId === id);
+    const tags = useSelector((state)=>{
+            const reel = state.reels.find(({id:reelId})=>reelId === id);
             return reel.tags;
-        },[id]),
-        enabled:false
-    })
+    }) || [];
 
 
     const {data=[]} = useProductsFromTagQuery(tags,{enabled:tags.length>0,select:(data)=>data.products});

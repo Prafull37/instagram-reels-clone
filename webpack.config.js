@@ -22,7 +22,7 @@ module.exports=(mode)=>{
         devtool: 'source-map',
         resolve:{
             fullySpecified:false,
-            extensions:[".mjs",'.js','.jsx']
+            extensions:[".mjs",'.js','.jsx'],
         },
         module:{
             rules:[
