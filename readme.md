@@ -1,3 +1,5 @@
+*** For this application I have considered the device breakpoint of 425px for mobile breakpoint. After 425px all the reels width will be fixed to 370px ***
+
 ### Library Used
 ```
 - react ---> For Rendering React Application
@@ -44,5 +46,3 @@
 -> index.js
 
 ```
-
-### How Different Folders Will interact
