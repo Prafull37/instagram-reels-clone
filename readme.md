@@ -30,9 +30,9 @@
     [hookName].js
 | queries ---> Data Fetching and Data Caching and Pagination
     [query].js 
+    queryClient  --> Singleton QueryClient
 | reels ---> Main container to land
     --> reel
-    --> queryClient 
 
 | store
     --> reducer.js ---> file for reducer and actions
@@ -44,3 +44,5 @@
 -> index.js
 
 ```
+
+### How Different Folders Will interact
